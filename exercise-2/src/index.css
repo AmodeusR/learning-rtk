@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: pink;
+  --color-text: hsl(217, 4%, 38%);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+     }
+
+.app {
+  width: min(80%, 40em);
+  margin-inline: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.post {
+  border: 6px dotted hsl(350, 100%, 83%);
+  padding: 1rem;
+  margin-block: 1rem;
+  border-radius: 8px;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.post :is(h3, p) {
+  margin: 0;
+}
+
+.post h3 {
+  margin-bottom: 1rem;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  font-size: 1.4rem;
+}
+
+.input-field input {
+  font-size: 1rem;
+  padding: .5rem;
+}
+
+.input-field textarea {
+    resize: none;
+    width: 100%;
+    min-height: 12rem;
+    font-size: 1rem;
+    padding: .5rem;
+}
+
+.form-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: none;
+  transition: background-color 150ms ease;
+}
+
+.form-button:hover {
+  cursor: pointer;
+  background:hsl(350, 100%, 90%)
+}
+
+.form-button:active {
+  background: hsl(350, 100%, 83%)
+}
