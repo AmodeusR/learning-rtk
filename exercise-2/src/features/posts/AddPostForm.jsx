@@ -1,11 +1,22 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllUsers } from "../users/usersSlice";
 import { createPost } from "./postsSlice";
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [userId, setUserId] = useState(null);
+
+  const canCreatePost = Boolean(title && content && userId);
+  const users = useSelector(selectAllUsers);
+
+  const userOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ));
 
   const handleSubmission = (e) => {
     e.preventDefault();
@@ -14,11 +25,14 @@ const AddPostForm = () => {
       alert("You need to fill in the fields!");
       return;
     }
+
+    const date = new Date().toISOString();
     
-    dispatch(createPost(title, content));
+    dispatch(createPost(title, content, Number(userId), date));
     setTitle("");
     setContent("");
   };
+
   return (
     <section>
       <h2>Post Form</h2>
@@ -32,6 +46,20 @@ const AddPostForm = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
+
+        <div className="input-field">
+          <label htmlFor="post-title">User</label>
+          <select
+            type="text"
+            id="post-title"
+            value={userId || ""}
+            onChange={(e) => setUserId(e.target.value)}
+          >
+            <option value=""></option>
+            {userOptions}
+          </select>
+        </div>
+
         <div className="input-field">
           <label htmlFor="post-content">Content</label>
           <textarea
@@ -41,7 +69,10 @@ const AddPostForm = () => {
           ></textarea>
         </div>
 
-        <button className="form-button" type="submit">
+        <button
+          className={`form-button ${!canCreatePost && "is-disabled"}`}
+          type="submit"
+        >
           Add Post
         </button>
       </form>
